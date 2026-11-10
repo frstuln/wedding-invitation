@@ -26,6 +26,7 @@
   document.title = `${C.couple.first} & ${C.couple.second} — The Wedding`;
   $("#m1").textContent = C.couple.first[0];
   $("#m2").textContent = C.couple.second[0];
+  $("#fYear").textContent = new Date().getFullYear();
 
   /* ---------- scene photos ---------- */
   const S = C.scenes || {}, root = document.documentElement.style;

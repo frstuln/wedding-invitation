@@ -311,6 +311,7 @@ section > * { max-width: 560px; margin-left: auto; margin-right: auto; }
 .monogram .m1 { position: absolute; left: 10px; top: -6px; font-size: 76px; line-height: 1; }
 .monogram .m2 { position: absolute; left: 52px; top: 30px; font-size: 46px; line-height: 1; }
 .f-names { font-size: 14px; letter-spacing: .14em; margin-top: 6px; }
+.f-rights { margin: 26px 0 0; font-size: 12px; letter-spacing: .08em; font-style: italic; opacity: .6; }
 
 /* =========== REAL PHOTO SCENES (when config.scenes is set) =========== */
 /* Velvet curtain photo, recoloured to Brown Coffee */
