@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Guest Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Italiana&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+  <header class="bar">
+    <div class="brand"><span class="mono-mark" id="mono"></span> Guest Admin</div>
+    <div class="bar-right">
+      <span class="demo-badge" id="demoBadge" hidden>DEMO MODE — data stays in this browser</span>
+      <button class="ghost" id="logoutBtn" hidden>Sign out</button>
+    </div>
+  </header>
+
+  <!-- Login -->
+  <section id="login" class="card narrow" hidden>
+    <h1>Sign in</h1>
+    <form id="loginForm">
+      <label>Email<input type="email" id="email" required autocomplete="username" /></label>
+      <label>Password<input type="password" id="password" required autocomplete="current-password" /></label>
+      <button class="primary" type="submit">Sign in</button>
+      <p class="err" id="loginErr"></p>
+    </form>
+  </section>
+
+  <!-- App -->
+  <main id="app" hidden>
+    <div class="stats" id="stats"></div>
+
+    <div class="grid2">
+      <section class="card">
+        <h2>Add a guest</h2>
+        <form id="addForm" class="add-form">
+          <label class="wide">Name on invitation*<input id="fName" required maxlength="120" placeholder="e.g. Mr. &amp; Mrs. Perera" /></label>
+          <label class="wide">Invite type*<select id="fType"><option value="full">Poruwa ceremony + Reception</option><option value="reception">Reception only</option></select></label>
+          <label>Seats<input id="fMax" type="number" min="1" max="20" value="1" required /></label>
+          <label>Side<select id="fSide"><option value="">—</option><option>Bride</option><option>Groom</option><option>Both</option></select></label>
+          <label>Group<input id="fTag" placeholder="Family, Office…" list="tagList" /></label>
+          <label>WhatsApp no.<input id="fPhone" placeholder="94771234567" /></label>
+          <label class="wide">Notes<input id="fNotes" /></label>
+          <button class="primary wide" type="submit">Add &amp; create link</button>
+        </form>
+        <datalist id="tagList"></datalist>
+        <div class="new-link" id="newLink" hidden></div>
+      </section>
+
+      <section class="card">
+        <h2>Bulk import (CSV)</h2>
+        <p class="hint">Columns: <code>name, invite, seats, side, group, phone, notes</code> (invite = <code>full</code> or <code>reception</code>) — first row is a header. <a href="sample-guests.csv" download>Download sample</a></p>
+        <input type="file" id="csvFile" accept=".csv,text/csv" />
+        <textarea id="csvText" rows="5" placeholder="…or paste CSV here"></textarea>
+        <button class="primary" id="importBtn">Import guests</button>
+        <p class="hint" id="importMsg"></p>
+      </section>
+    </div>
+
+    <section class="card">
+      <div class="table-head">
+        <h2>Guests</h2>
+        <div class="filters">
+          <input id="search" placeholder="Search name, group, phone…" />
+          <select id="statusFilter">
+            <option value="">All statuses</option><option value="pending">Pending</option>
+            <option value="unopened">Not opened yet</option><option value="attending">Attending</option><option value="declined">Declined</option>
+          </select>
+          <select id="typeFilter"><option value="">All invite types</option><option value="full">Ceremony + Reception</option><option value="reception">Reception only</option></select>
+          <button class="ghost" id="exportBtn">Export CSV</button>
+          <button class="ghost" id="refreshBtn">Refresh</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Guest</th><th>Invite</th><th>Seats</th><th>Group</th><th>Opened</th><th>RSVP</th><th>Link</th><th></th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Edit dialog -->
+  <dialog id="editDlg">
+    <form method="dialog" id="editForm" class="add-form">
+      <h2 class="wide">Edit guest</h2>
+      <label class="wide">Name on invitation<input id="eName" required maxlength="120" /></label>
+      <label class="wide">Invite type<select id="eType"><option value="full">Poruwa ceremony + Reception</option><option value="reception">Reception only</option></select></label>
+      <label>Seats<input id="eMax" type="number" min="1" max="20" /></label>
+      <label>Side<select id="eSide"><option value="">—</option><option>Bride</option><option>Groom</option><option>Both</option></select></label>
+      <label>Group<input id="eTag" list="tagList" /></label>
+      <label>WhatsApp no.<input id="ePhone" /></label>
+      <label class="wide">Notes<input id="eNotes" /></label>
+      <label>RSVP status<select id="eStatus"><option value="pending">Pending</option><option value="attending">Attending</option><option value="declined">Declined</option></select></label>
+      <label>Attending count<input id="eCount" type="number" min="0" max="20" /></label>
+      <div class="wide dlg-actions">
+        <button value="cancel" class="ghost" formnovalidate>Cancel</button>
+        <button value="save" class="primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

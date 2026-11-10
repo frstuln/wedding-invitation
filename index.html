@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>The Wedding</title>
+  <meta name="description" content="You are cordially invited." />
+  <meta name="robots" content="noindex" />
+  <!-- Link preview (WhatsApp / Messenger). Put a 1200x630 image at assets/og.jpg -->
+  <meta property="og:title" content="You're invited — Udari & Piushan" />
+  <meta property="og:description" content="Please open your personal invitation." />
+  <meta property="og:image" content="assets/og.jpg" />
+  <meta name="theme-color" content="#4a2c2a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Italiana&family=Pinyon+Script&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/invite.css" />
+</head>
+<body class="locked">
+
+  <!-- ============ NAV (as in the reference) ============ -->
+  <nav class="topnav" id="topnav">
+    <a href="#home">Home</a><a href="#story">Love Story</a><a href="#details">Details</a><a href="#rsvp">RSVP</a>
+  </nav>
+  <button id="musicBtn" class="music-btn" hidden aria-label="Toggle music">♪</button>
+  <audio id="music" loop preload="none"></audio>
+
+  <!-- =================================================================
+       PAGE 1 — HOME
+       ================================================================= -->
+  <div class="view" data-view="home">
+
+    <!-- First frame: vintage envelope with wax seal -->
+    <section id="hero" class="hero-env vintage-bg">
+      <div class="frame"><i class="c tl">❦</i><i class="c tr">❦</i><i class="c bl">❦</i><i class="c br">❦</i></div>
+
+      <div class="opener-top">
+        <div class="caps xs">You are cordially invited</div>
+        <div class="opener-for script" id="openerFor"></div>
+      </div>
+
+      <div class="env" id="env">
+        <div class="env-back"></div>
+        <div class="letter">
+          <div class="letter-in">
+            <div class="script l-the">The</div>
+            <div class="caps l-wed">Wedding</div>
+            <div class="l-of"><span class="script">of</span> <span class="caps" data-bind="namesCaps"></span></div>
+          </div>
+        </div>
+        <div class="env-front"><div class="pf left"></div><div class="pf right"></div><div class="pf bottom"></div></div>
+        <div class="flap"><div class="flap-out"></div><div class="flap-in"></div></div>
+        <div class="twine"></div>
+        <svg class="sprig" viewBox="0 0 120 60" aria-hidden="true">
+          <path d="M4 50 C 40 40, 70 30, 116 8"/>
+          <path d="M30 42c-6-10-2-16 4-18 0 8-1 13-4 18zM30 42c10 2 15-2 16-8-7 0-12 3-16 8z"/>
+          <path d="M56 32c-6-10-2-16 4-18 0 8-1 13-4 18zM56 32c10 2 15-2 16-8-7 0-12 3-16 8z"/>
+          <path d="M82 21c-5-9-2-14 3-16 0 7-1 11-3 16zM82 21c9 2 13-2 14-7-6 0-10 3-14 7z"/>
+          <circle cx="112" cy="9" r="2.5"/><circle cx="104" cy="6" r="1.8"/><circle cx="108" cy="15" r="1.8"/>
+        </svg>
+        <button class="seal" id="openBtn" aria-label="Open your invitation">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <radialGradient id="wax" cx="38%" cy="32%" r="75%">
+                <stop offset="0" stop-color="#8b5e57"/><stop offset=".45" stop-color="#5c3631"/><stop offset="1" stop-color="#2e1714"/>
+              </radialGradient>
+              <radialGradient id="waxIvory" cx="38%" cy="32%" r="75%">
+                <stop offset="0" stop-color="#fffaf0"/><stop offset=".5" stop-color="#eadcc3"/><stop offset="1" stop-color="#b9a68a"/>
+              </radialGradient>
+            </defs>
+            <path id="sealShape" fill="url(#wax)" d="M50 3c7 0 9 4 15 5s11-1 15 4 1 10 4 15 8 7 8 14-5 8-5 14 4 10 0 15-10 3-14 7-4 10-11 12-9-3-15-3-10 5-16 2-5-9-10-12-11-2-14-8 2-10 0-15-6-8-4-14 8-6 9-12-1-11 4-14 10 0 15-3 5-7 14-7z"/>
+            <circle cx="50" cy="50" r="31" fill="none" stroke="#2e1714" stroke-opacity=".55" stroke-width="2.5"/>
+            <circle cx="50" cy="50" r="27" fill="none" stroke="#a77d70" stroke-opacity=".5" stroke-width="1"/>
+          </svg>
+          <span class="seal-mono script" data-bind="monogram"></span>
+        </button>
+      </div>
+
+      <button class="opener-hint" id="openHint">Tap the seal to open</button>
+    </section>
+
+    <!-- Save the date -->
+    <section class="paper std">
+      <p class="dear reveal" id="dear"></p>
+      <p class="lead reveal" id="wording"></p>
+      <h2 class="script-title reveal">Save The Date</h2>
+      <div class="ticket reveal">
+        <div class="ticket-photo" id="ticketPhoto"></div>
+        <div class="ticket-names caps" data-bind="namesCaps"></div>
+        <div class="ticket-notch"></div>
+        <div class="ticket-meta mono">
+          <span data-bind="dateShort"></span>
+          <span class="right" data-bind="cityLine"></span>
+        </div>
+        <div class="barcode" id="barcode"></div>
+        <div class="mono code-line" id="codeLine"></div>
+      </div>
+      <p class="body-text reveal" data-bind="intro"></p>
+      <p class="body-text reveal tight">Let's make memories that will last a lifetime!</p>
+      <div class="countdown reveal" id="countdown"></div>
+    </section>
+
+    <!-- "The Details — please click here" -->
+    <section class="velvet details-teaser">
+      <a href="#details" class="teaser reveal" aria-label="Open the wedding details">
+        <svg class="tray" viewBox="0 0 400 300" aria-hidden="true">
+          <defs>
+            <radialGradient id="traySilver" cx="40%" cy="35%" r="70%">
+              <stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#d7d8da"/><stop offset=".75" stop-color="#9c9ea2"/><stop offset="1" stop-color="#6c6e72"/>
+            </radialGradient>
+            <linearGradient id="trayRim" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#f4f4f5"/><stop offset=".5" stop-color="#8d8f93"/><stop offset="1" stop-color="#e3e4e6"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="200" cy="150" rx="190" ry="140" fill="url(#trayRim)"/>
+          <ellipse cx="200" cy="150" rx="172" ry="124" fill="url(#traySilver)"/>
+          <ellipse cx="200" cy="150" rx="150" ry="105" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2"/>
+        </svg>
+        <div class="polaroid p1"><div class="ph" id="pol1"></div></div>
+        <div class="polaroid p2"><div class="ph" id="pol2"></div></div>
+        <div class="badge">
+          <svg viewBox="0 0 200 200" aria-hidden="true" id="scallop"></svg>
+          <div class="badge-txt">
+            <span class="script b-the">The</span>
+            <span class="caps b-det">Details</span>
+            <span class="b-click"><span class="script">please</span> <span class="caps">click here</span></span>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Love story -->
+    <section id="story" class="paper story">
+      <h2 class="title-pair reveal"><span class="caps">Our Love</span><span class="script">Story</span></h2>
+      <div class="story-grid">
+        <div class="filmstrip reveal" id="strip"></div>
+        <div class="story-text reveal" id="storyText"></div>
+      </div>
+      <svg class="cupid-heart reveal" viewBox="0 0 120 80" aria-hidden="true">
+        <path d="M60 70 C 30 50, 18 36, 22 24 C 26 12, 44 10, 52 22 L60 32 L68 22 C 76 10, 94 12, 98 24 C 102 36, 90 50, 60 70 Z"/>
+        <path d="M8 60 L 112 18"/><path d="M112 18 l-10 1 4 6z" class="fill"/>
+        <path d="M8 60 l-4 -6 M8 60 l2 -7 M14 58 l-4 -6 M14 58 l2 -7"/>
+      </svg>
+    </section>
+
+    <!-- Kindly reply teaser: envelope on a vinyl record -->
+    <section class="record-scene">
+      <a href="#rsvp" class="reply-link reveal" aria-label="Reply to the invitation">
+        <div class="vinyl"><div class="vinyl-label"><span class="script" data-bind="monogram"></span></div></div>
+        <div class="reply-env">
+          <div class="re-flap"></div>
+          <div class="re-txt">
+            <span class="script re-kindly">Kindly</span>
+            <span class="caps re-reply">Reply</span>
+            <span class="re-by"><span class="script">by</span> <span class="caps" data-bind="rsvpBy"></span></span>
+          </div>
+          <div class="re-seal"><svg viewBox="0 0 100 100"><path id="ivorySeal" fill="url(#waxIvory)"/><circle cx="50" cy="50" r="29" fill="none" stroke="#a8957a" stroke-width="1.5"/></svg></div>
+        </div>
+      </a>
+    </section>
+  </div>
+
+  <!-- =================================================================
+       PAGE 2 — DETAILS
+       ================================================================= -->
+  <div class="view" data-view="details" hidden>
+    <section class="details-hero">
+      <svg class="coupe" viewBox="0 0 200 260" aria-hidden="true">
+        <defs>
+          <linearGradient id="glass" x1="0" x2="1">
+            <stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".3" stop-color="#fff" stop-opacity=".12"/>
+            <stop offset=".7" stop-color="#fff" stop-opacity=".08"/><stop offset="1" stop-color="#fff" stop-opacity=".45"/>
+          </linearGradient>
+          <linearGradient id="bubbly" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f3dcae"/><stop offset="1" stop-color="#c8a064"/>
+          </linearGradient>
+        </defs>
+        <path d="M30 60 Q 100 50 170 60 Q 160 118 100 122 Q 40 118 30 60 Z" fill="url(#glass)" stroke="#fff" stroke-opacity=".5"/>
+        <path d="M36 70 Q 100 64 164 70 Q 154 114 100 117 Q 46 114 36 70 Z" fill="url(#bubbly)" opacity=".85"/>
+        <ellipse cx="100" cy="60" rx="70" ry="8" fill="none" stroke="#fff" stroke-opacity=".7"/>
+        <path d="M96 122 L 98 218 M104 122 L 102 218" stroke="#fff" stroke-opacity=".55" stroke-width="2"/>
+        <ellipse cx="100" cy="222" rx="42" ry="8" fill="url(#glass)" stroke="#fff" stroke-opacity=".5"/>
+        <circle cx="80" cy="90" r="2" fill="#fff" opacity=".7"/><circle cx="110" cy="100" r="1.5" fill="#fff" opacity=".7"/><circle cx="125" cy="84" r="1.8" fill="#fff" opacity=".6"/>
+        <path d="M44 66 Q 50 96 76 110" stroke="#fff" stroke-opacity=".8" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="dh-title">
+        <span class="script dh-the">The</span>
+        <span class="caps dh-det">Details</span>
+        <span class="dh-sub"><span class="script">of</span> <span class="caps">our wedding day</span></span>
+      </div>
+    </section>
+
+    <section class="burgundy details-body">
+      <div class="venue reveal" id="ceremony"></div>
+      <div class="venue reveal" id="reception"></div>
+
+      <h3 class="script-title light reveal">Itinerary</h3>
+      <div class="itinerary" id="itinerary"></div>
+
+      <h3 class="script-title light reveal">More Information</h3>
+      <div class="info reveal" id="dress"></div>
+      <div class="info reveal" id="gifts"></div>
+      <div class="info reveal" id="attendance"></div>
+    </section>
+
+    <section class="paper stay" id="stay"></section>
+  </div>
+
+  <!-- =================================================================
+       PAGE 3 — RSVP
+       ================================================================= -->
+  <div class="view" data-view="rsvp" hidden>
+    <section class="burgundy rsvp">
+      <h2 class="title-pair light"><span class="script">Kindly</span><span class="caps">Reply</span></h2>
+      <p class="by"><span class="script">by</span> <span class="caps" data-bind="rsvpBy"></span></p>
+      <p class="body-text light">We can't wait to celebrate our special day with you, and your presence means the world to us! Please let us know if you will be able to join in the joy and festivities.</p>
+      <p class="adults-note" id="rsvpAdults"></p>
+
+      <div id="rsvpNoCode" class="rsvp-note" hidden></div>
+
+      <!-- Reply form — same fields as the reference -->
+      <form id="rsvpForm" class="rsvp-form" novalidate>
+        <label for="fullName">Full Name*</label>
+        <input id="fullName" name="fullName" autocomplete="name" maxlength="120" required />
+
+        <label>Will you be attending?*</label>
+        <div class="choice" id="attendChoice" role="radiogroup">
+          <button type="button" data-v="yes" role="radio">Wouldn't miss it for the world!</button>
+          <button type="button" data-v="no" role="radio">Sending love from afar.</button>
+        </div>
+
+        <div id="partyFields">
+          <label>How many guests are in your party?</label>
+          <div class="choice" id="countChoice" role="radiogroup"></div>
+
+          <label for="names">Names of additional guests</label>
+          <textarea id="names" rows="3" maxlength="500"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">Submit</button>
+        <p class="form-msg" id="formMsg"></p>
+        <p class="form-fine">Your reply goes only to the couple. Kindly reply by <span data-bind="rsvpBy"></span>.</p>
+      </form>
+
+      <div id="rsvpDone" class="rsvp-done" hidden></div>
+    </section>
+  </div>
+
+  <!-- Shared footer -->
+  <footer class="burgundy footer">
+    <div class="monogram"><span class="script m1" id="m1"></span><span class="caps m2" id="m2"></span></div>
+    <div class="caps f-names" data-bind="namesCaps"></div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/invite.js"></script>
+</body>
+</html>
